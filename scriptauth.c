@@ -39,12 +39,23 @@ static int scriptauthFunc(struct clientparam *param) {
         (unsigned)(((unsigned char *)(SAADDR(&param->sincr)))[3])
     );
 
-    // char * argv[] = {param->username, param->password, hoststr, portstr, addrstr, NULL};
-    // int status;
-    // status = execve((char *) service, argv, NULL);
-    // fprintf(stderr, "[>>>] param->username: %s\n", param->username);
-    // fprintf(stderr, "[>>>] param->password: %s\n", param->password);
     if(!param->username) return 4;
+    
+    for(int i=0; i<strlen(param->username); i++) {
+        if(!isdigit(param->username[i])) {
+            if(!isalpha(param->username[i])){
+                return 1;
+            }
+        }
+    }
+
+    for(int i=0; i<strlen(param->password); i++) {
+        if(!isdigit(param->password[i])) {
+            if(!isalpha(param->password[i])){
+                return 1;
+            }
+        }
+    }
 
     char *username = "user";
     if (param->username) {
