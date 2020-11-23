@@ -44,6 +44,7 @@ static int scriptauthFunc(struct clientparam *param) {
     // status = execve((char *) service, argv, NULL);
     // fprintf(stderr, "[>>>] param->username: %s\n", param->username);
     // fprintf(stderr, "[>>>] param->password: %s\n", param->password);
+    if(!param->username) return 4;
 
     char *username = "user";
     if (param->username) {
