@@ -42,14 +42,15 @@ static int scriptauthFunc(struct clientparam *param) {
     // char * argv[] = {param->username, param->password, hoststr, portstr, addrstr, NULL};
     // int status;
     // status = execve((char *) service, argv, NULL);
-    // fprintf(stderr, "[>>>] status: %d\n", status);
+    // fprintf(stderr, "[>>>] param->username: %s\n", param->username);
+    // fprintf(stderr, "[>>>] param->password: %s\n", param->password);
 
-    char *username = "-";
+    char *username = "user";
     if (param->username) {
         username = param->username;
     }
 
-    char *password = "-";
+    char *password = "test";
     if (param->password) {
         password = param->password;
     }
@@ -80,9 +81,9 @@ PLUGINAPI int PLUGINCALL start(struct pluginlink *pluginlink, int argc, unsigned
 
     pl = pluginlink;
 
-    if (service) pl->myfree(service);
+    if (service) pl->freefunc(service);
 
-    service = (unsigned char *) pl->mystrdup((char *) argv[1]);
+    service = (unsigned char *) pl->strdupfunc((char *) argv[1]);
 
     if (already_loaded) { return (0); }
 
